@@ -16,8 +16,8 @@ public class JsonParser {
     public static final String HASHTAG_LITERAL = "name";
     public static final String HASHTAG_QUERY_URL = "url";
 
-    public List<Trend> parseTrends(String jsonResponse) {
-        List<Trend> trendsList = new ArrayList<>();
+    public List<Trend> parseTrends(String jsonResponse, List<Trend> trends) {
+
         try {
             JSONObject parent = new JSONArray(jsonResponse).getJSONObject(0);
             JSONArray trendsArray = parent.getJSONArray("trends");
@@ -26,13 +26,14 @@ public class JsonParser {
                 String queryUrl = trendsArray.getJSONObject(i).getString(HASHTAG_QUERY_URL);
                 Trend tr = new Trend();
                 tr.setName(name).setQueryUrl(queryUrl);
-                trendsList.add(tr);
+                trends.add(tr);
             }
+
         } catch (Exception e) {
             Log.d("JSON_PARSE", e.getMessage());
         }
 
-        return trendsList;
+        return trends;
     }
 
 
