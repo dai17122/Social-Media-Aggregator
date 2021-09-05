@@ -3,6 +3,9 @@ package com.example.ergasiaseptemvrioy;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -21,18 +24,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Twitter extends AsyncTask<String, Void, List<Trend>> {
+public class TwitterWorldWideTrends extends AsyncTask<String, Void, List<Trend>> {
 
     protected final String TWITTER_TRENDS_URL = "https://api.twitter.com/1.1/trends/place.json?id=1";
     protected final String TWITTER_AUTH_HEADER_TYPE = "Authorization";
     protected final String TWITTER_AUTH_HEADER_VALUE = "Bearer " + BuildConfig.TWITTER_BEARER_TOKEN;
     protected static final String TAG = "TWITTER_REQUEST";
     protected List<Trend> trends = new ArrayList<>();
+    private final TrendHashtagAdapter adapter;
 
+    public TwitterWorldWideTrends(TrendHashtagAdapter adapter){
+        this.adapter = adapter;
+    }
 
-    public Twitter getTrends() {
+    public void getTrends() {
         this.doInBackground();
-        return this;
     }
 
     @Override
@@ -45,11 +51,7 @@ public class Twitter extends AsyncTask<String, Void, List<Trend>> {
             .getAsString(new StringRequestListener() {
                 @Override
                 public void onResponse(String response) {
-                    JsonParser parser = new JsonParser();
-                    parser.parseTrends(response, trends);
-                    for (int i = 0; i < trends.size(); i++) {
-                        Log.d("RIGHT_PARSING", "TREND NAME: " + trends.get(i).getName() + " TREND HASHTAG URL " + trends.get(i).getQueryUrl() + "\n");
-                    }
+                    adapter.setTrendsList(new JsonParser().parseTrends(response, trends));
                 }
 
                 @Override
@@ -59,4 +61,5 @@ public class Twitter extends AsyncTask<String, Void, List<Trend>> {
             });
         return this.trends;
     }
+
 }
