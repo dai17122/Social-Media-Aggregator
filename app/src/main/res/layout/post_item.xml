@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/profilePhoto"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="134dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp"
+        android:text="UserName"
+        app:layout_constraintStart_toEndOf="@+id/profilePhoto"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hashtags"
+        android:layout_width="275dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="#hashtags"
+        app:layout_constraintStart_toEndOf="@+id/profilePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <TextView
+        android:id="@+id/twitterPostBody"
+        android:layout_width="262dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="10dp"
+        android:text="Post Body"
+        app:layout_constraintTop_toBottomOf="@+id/hashtags"
+        tools:layout_editor_absoluteX="100dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

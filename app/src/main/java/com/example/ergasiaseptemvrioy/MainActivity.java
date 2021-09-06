@@ -2,6 +2,8 @@ package com.example.ergasiaseptemvrioy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String WRONG_TEXT_MESSAGE = "Please write a valid search term";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         TrendHashtagAdapter adapter = new TrendHashtagAdapter(this, R.layout.hashtag_item, new ArrayList<Trend>(), findViewById(R.id.HashtagListView));
         TwitterWorldWideTrends twitterWorldWideTrends = new TwitterWorldWideTrends(adapter);
         twitterWorldWideTrends.getTrends();
-
+        Context context = this;
         Button submit = (Button)findViewById(R.id.submitHashtag);
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 String term = searchValue.getText().toString();
                 if (term.length()  == 0){
                     TextView errors = (TextView)findViewById(R.id.errorMessages);
-                    errors.setText("Please write a valid search term");
+                    errors.setText(WRONG_TEXT_MESSAGE);
                 }else{
-
+                    Intent intent = new Intent(context, PostsActivity.class);
+                    intent.putExtra("searchTerm", term);
+                    startActivity(intent);
                 }
             }
         });
