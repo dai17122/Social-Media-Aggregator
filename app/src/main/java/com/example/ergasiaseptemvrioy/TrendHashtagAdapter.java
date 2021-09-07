@@ -1,6 +1,8 @@
 package com.example.ergasiaseptemvrioy;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ public class TrendHashtagAdapter extends ArrayAdapter<Trend> {
     private final LayoutInflater inflater;
     private final int layoutResource;
     private final ListView hashTagListView;
+    private final Context context;
+
 
     public TrendHashtagAdapter(@NonNull Context context, int resource, @NonNull List<Trend> objects, ListView listView) {
         super(context, resource, objects);
@@ -26,6 +30,7 @@ public class TrendHashtagAdapter extends ArrayAdapter<Trend> {
         layoutResource = resource;
         inflater = LayoutInflater.from(context);
         hashTagListView = listView;
+        this.context = context;
     }
 
     @Override
@@ -52,6 +57,16 @@ public class TrendHashtagAdapter extends ArrayAdapter<Trend> {
         //krivw to text apo to button giati to text toy button einai stin pragmatikotita to URL poy ua kanoyme reques
         //gia na paroyme ola ta POSTS me auto to hastag name  apo to twitter!!
         viewHolder.hashtagURLButton.setTextSize(0);
+        viewHolder.hashtagURLButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] explodedString = trendsList.get(position).getQueryUrl().split("=");
+                Log.d("exploded_string",explodedString[1]);
+                Intent intent = new Intent(context, PostsActivity.class);
+                intent.putExtra("searchTerm", explodedString[1]);
+                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
@@ -60,6 +75,8 @@ public class TrendHashtagAdapter extends ArrayAdapter<Trend> {
         this.trendsList = trends;
         hashTagListView.setAdapter(this);
     }
+
+
 
     private class ViewHolder {
 
@@ -71,5 +88,8 @@ public class TrendHashtagAdapter extends ArrayAdapter<Trend> {
            hashtagURLButton = view.findViewById(R.id.submitHashtag);
        }
     }
+
+
+
 
 }
