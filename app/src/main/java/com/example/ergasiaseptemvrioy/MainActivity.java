@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String WRONG_TEXT_MESSAGE = "Please write a valid search term";
+    public static final String SEARCH_TERM_NAME="searchTerm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     errors.setText(WRONG_TEXT_MESSAGE);
                 } else {
                     Intent intent = new Intent(context, PostsActivity.class);
-                    intent.putExtra("searchTerm", term);
+                    intent.putExtra(SEARCH_TERM_NAME, term);
                     startActivity(intent);
                 }
             }
