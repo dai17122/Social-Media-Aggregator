@@ -48,15 +48,8 @@ public class CreatePostActivity extends AppCompatActivity {
 //                    .checkToShareInstagram()
 //                    .share();
                 String postBody = editText.getText().toString();
-                FacebookRequest request = new FacebookRequest(postBody);
-                Boolean response = request.uploadPost();
-                if (response){
-                    Toast.makeText(getApplicationContext(),"Post uploaded to Facebook",Toast.LENGTH_LONG).show();
-                }
-
-
-
-
+                FacebookRequest request = new FacebookRequest(postBody, getApplicationContext());
+                String response = request.uploadPost();
             }
         });
     }
