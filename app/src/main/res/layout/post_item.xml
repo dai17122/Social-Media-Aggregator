@@ -31,7 +31,7 @@
         android:layout_width="275dp"
         android:layout_height="22dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:text="#hashtags"
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toBottomOf="@+id/username" />
@@ -40,8 +40,10 @@
         android:id="@+id/twitterPostBody"
         android:layout_width="262dp"
         android:layout_height="113dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="10dp"
         android:text="Post Body"
-        app:layout_constraintTop_toBottomOf="@+id/hashtags"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hashtags" />
 </androidx.constraintlayout.widget.ConstraintLayout>

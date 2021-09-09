@@ -49,7 +49,6 @@ public class TwitterCustomHashtag extends AsyncTask<String, Void, List<Post>> {
                 public void onResponse(String response) {
                     JsonParser parser = new JsonParser();
                     posts = parser.parsePosts(response);
-                    Log.d("posts", posts.toString());
                     adapter.setPostList(new JsonParser().parsePosts(response));
                 }
 

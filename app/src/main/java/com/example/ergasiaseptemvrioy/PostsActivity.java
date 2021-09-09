@@ -21,6 +21,5 @@ public class PostsActivity extends AppCompatActivity {
         TwitterCustomHashtag search = new TwitterCustomHashtag(adapter);
         search.setSearchTerm(searchTerm).getPosts();
 
-        Toast.makeText(getApplicationContext(), "Seaching posts with "+ searchTerm + "hashtags", Toast.LENGTH_LONG);
     }
 }

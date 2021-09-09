@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -70,6 +71,16 @@ public class JsonParser {
         }
         return posts;
 
+    }
+
+
+    public String parserAccessToken(String jsonResponse) {
+        try {
+            return new JSONObject(jsonResponse).getString("access_token");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

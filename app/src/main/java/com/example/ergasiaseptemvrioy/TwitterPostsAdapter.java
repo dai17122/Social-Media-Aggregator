@@ -60,7 +60,7 @@ public class TwitterPostsAdapter extends ArrayAdapter<Post> {
         viewHolder.username.setText(currentPost.getUserName() + "");
         viewHolder.postBody.setText(currentPost.getPostBody() + "");
         viewHolder.hashtags.setText(currentPost.getHashTags() + "");
-//        URL newurl = null;
+        URL newurl = null;
 //        try {
 //            newurl = new URL(currentPost.getUserPhotoUrl());
 //        } catch (MalformedURLException e) {
