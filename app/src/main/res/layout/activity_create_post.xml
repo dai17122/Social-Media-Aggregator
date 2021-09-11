@@ -10,7 +10,7 @@
         android:id="@+id/submitButton"
         android:layout_width="110dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="112dp"
         android:background="#673AB7"
         android:text="Upload Post"
         android:textColor="#FFFFFF"
@@ -78,4 +78,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twitterSwitch" />
+
+    <Button
+        android:id="@+id/choosefile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose File"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+
+    <ImageView
+        android:id="@+id/IVPreviewImage"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postBody"
+        app:layout_constraintVertical_bias="0.595"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

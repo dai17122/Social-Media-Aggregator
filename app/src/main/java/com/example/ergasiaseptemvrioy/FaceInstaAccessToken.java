@@ -25,7 +25,6 @@ public class FaceInstaAccessToken extends AsyncTask<String, Void, String> {
 
     public String getAccessToken(){
         return  this.accessToken;
-
     }
 
     @Override
