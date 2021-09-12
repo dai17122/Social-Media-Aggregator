@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -95,6 +97,7 @@ public class CreatePostActivity extends AppCompatActivity {
         shareTwiiter = twitterSwitch.isChecked();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void uploadPosts(String postBody, Context context) {
         checkSwitches();
 
@@ -109,7 +112,9 @@ public class CreatePostActivity extends AppCompatActivity {
             twitterPost.uploadTwitterPost();
         }
         if (shareInsta){
-
+            UploadImgCloud cl = new UploadImgCloud();
+            cl.setImageUrl(imagePath);
+            cl.upload();
         }
 
     }
