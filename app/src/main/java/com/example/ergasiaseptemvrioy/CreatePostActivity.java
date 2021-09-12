@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +20,14 @@ import androidx.core.app.ActivityCompat;
 
 public class CreatePostActivity extends AppCompatActivity {
 
-    private static final String FACEBOOK_PAGE_ID = "108449131580569";
-    private static final String FACEBOOK_BASE_URL_API = "https://graph.facebook.com/v11.0/";
-    private static final String FACEBOOK_UPLOAD_POST_URL = FACEBOOK_BASE_URL_API + "/" + FACEBOOK_PAGE_ID + "/feed";
     int SELECT_PICTURE = 200;
     ImageView IVPreviewImage;
     private String imagePath;
     private Context context;
+    public boolean shareFb, shareInsta, shareTwiiter;
+    private Switch facebookSwitch;
+    private Switch instagramSwitch;
+    private Switch twitterSwitch;
 
 
     @Override
@@ -35,9 +37,12 @@ public class CreatePostActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         Button submit = (Button) findViewById(R.id.submitButton);
         EditText editText = (EditText) findViewById(R.id.postBody);
+        facebookSwitch = (Switch) findViewById(R.id.facebookSwitch);
+        twitterSwitch = (Switch) findViewById(R.id.twitterSwitch);
+        instagramSwitch = (Switch) findViewById(R.id.instagramSwitch);
         IVPreviewImage = findViewById(R.id.IVPreviewImage);
-
         context = this;
+
         Button chooser = (Button) findViewById(R.id.choosefile);
         chooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,15 +59,13 @@ public class CreatePostActivity extends AppCompatActivity {
 
 
         });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String postBody = editText.getText().toString();
-                FacebookRequest request = new FacebookRequest(postBody, context);
-                request.setImagePath(imagePath);
-                request.uploadPost();
+                Log.d("switches", facebookSwitch.isChecked() + "");
 
+                String postBody = editText.getText().toString();
+                uploadPosts(postBody, context);
             }
         });
     }
@@ -79,10 +82,36 @@ public class CreatePostActivity extends AppCompatActivity {
             Uri selectedUri = data.getData();
             Log.d("path", selectedUri.getPath() + "");
             Uri selectedImageURI = data.getData();
+            IVPreviewImage.setImageURI(selectedUri);
             imagePath = PathUtils.getPath(getApplicationContext(), selectedImageURI);
 
 
         }
+    }
+
+    private void checkSwitches() {
+        shareFb = facebookSwitch.isChecked();
+        shareInsta = instagramSwitch.isChecked();
+        shareTwiiter = twitterSwitch.isChecked();
+    }
+
+    private void uploadPosts(String postBody, Context context) {
+        checkSwitches();
+
+        if (shareFb) {
+            FacebookPost request = new FacebookPost(postBody, context);
+            request.setImagePath(imagePath);
+            request.uploadPost();
+        }
+
+        if (shareTwiiter){
+            TwitterPost twitterPost = new TwitterPost(context, postBody, imagePath);
+            twitterPost.uploadTwitterPost();
+        }
+        if (shareInsta){
+
+        }
+
     }
 
 }
