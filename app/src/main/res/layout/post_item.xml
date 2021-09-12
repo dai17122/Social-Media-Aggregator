@@ -19,10 +19,12 @@
     <TextView
         android:id="@+id/username"
         android:layout_width="134dp"
-        android:layout_height="16dp"
+        android:layout_height="22dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="35dp"
         android:text="UserName"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 

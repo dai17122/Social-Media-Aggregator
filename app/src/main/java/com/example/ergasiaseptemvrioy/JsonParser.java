@@ -51,15 +51,15 @@ public class JsonParser {
 
                 String createdAt = ob.getString("created_at");
                 String postBody = ob.getString("text");
-//                String userName = ob.getJSONObject("user").getString("name");
-//                String userPhotoUrl = ob.getString("profile_image_url_https");
+                String userName = ob.getJSONObject("user").getString("name");
+                String userPhotoUrl = ob.getJSONObject("user").getString("profile_image_url_https");
 
                 Post post = new Post();
                 post.setCreatedAt(createdAt + "");
                 post.setHashTags(allHashtags + "");
                 post.setPostBody(postBody + "");
-//                 post.setUserName(userName + "");
-//                post.setUserPhotoUrl(userPhotoUrl + "");
+                 post.setUserName(userName + "");
+                post.setUserPhotoUrl(userPhotoUrl + "");
                 posts.add(post);
             }
         } catch (Exception e) {

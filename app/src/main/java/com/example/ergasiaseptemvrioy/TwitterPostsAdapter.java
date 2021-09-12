@@ -1,14 +1,10 @@
 package com.example.ergasiaseptemvrioy;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,9 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class TwitterPostsAdapter extends ArrayAdapter<Post> {
@@ -60,21 +55,8 @@ public class TwitterPostsAdapter extends ArrayAdapter<Post> {
         viewHolder.username.setText(currentPost.getUserName() + "");
         viewHolder.postBody.setText(currentPost.getPostBody() + "");
         viewHolder.hashtags.setText(currentPost.getHashTags() + "");
-        URL newurl = null;
-//        try {
-//            newurl = new URL(currentPost.getUserPhotoUrl());
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//        Bitmap mIcon_val;
-//        try {
-//            mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-//            viewHolder.profilePhoto.setImageBitmap(mIcon_val);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
-
+        Picasso.get().load(currentPost.getUserPhotoUrl()).into(viewHolder.profilePhoto);
 
         return convertView;
     }
@@ -90,12 +72,14 @@ public class TwitterPostsAdapter extends ArrayAdapter<Post> {
         final TextView username;
         final TextView hashtags;
         final TextView postBody;
+        final ImageView profilePhoto;
 
         ViewHolder(View view) {
 
             username = view.findViewById(R.id.username);
             hashtags = view.findViewById(R.id.hashtags);
             postBody = view.findViewById(R.id.twitterPostBody);
+            profilePhoto = view.findViewById(R.id.profilePhoto);
         }
     }
 
