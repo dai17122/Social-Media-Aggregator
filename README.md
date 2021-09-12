@@ -13,8 +13,8 @@
 
 ## Σελίδες που ανεβαίνουν τα Posts
 
-[Σελίδα στο twitter](https://twitter.com/FourkasGeorge)
-[Σελίδα στο Facebook](https://www.facebook.com/Android-SM-Aggregator-108449131580569)
-[Σελίδα στο Instagram](https://www.instagram.com/sm.aggregator/)
+[Σελίδα στο twitter](https://twitter.com/FourkasGeorge)<br/>
+[Σελίδα στο Facebook](https://www.facebook.com/Android-SM-Aggregator-108449131580569)<br/>
+[Σελίδα στο Instagram](https://www.instagram.com/sm.aggregator/)<br/>
 
 
