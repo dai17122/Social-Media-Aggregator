@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -62,6 +63,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         });
         submit.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 Log.d("switches", facebookSwitch.isChecked() + "");
@@ -111,10 +113,15 @@ public class CreatePostActivity extends AppCompatActivity {
             TwitterPost twitterPost = new TwitterPost(context, postBody, imagePath);
             twitterPost.uploadTwitterPost();
         }
-        if (shareInsta){
+        //αν το imageview δν εχει εικονα, τοτε συμπερασμα ο χρηστης δεν εχει επιλεξει εικονα.
+        // Αρα δεν θα ανεβασει  τιποτα στο instagram για προλειψη error
+        if (shareInsta && IVPreviewImage.getDrawable() != null){
             InstagramPost cl = new InstagramPost(context);
             cl.setImageUrl(imagePath);
+            cl.setPostBody(postBody);
             cl.upload();
+        }else{
+            Toast.makeText(context, "not uploading to instagram", Toast.LENGTH_SHORT).show();
         }
 
     }
