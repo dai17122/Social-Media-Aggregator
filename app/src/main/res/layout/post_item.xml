@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/hashtags"
-        android:layout_width="275dp"
-        android:layout_height="22dp"
+        android:layout_width="279dp"
+        android:layout_height="41dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="#hashtags"
@@ -40,12 +40,13 @@
 
     <TextView
         android:id="@+id/twitterPostBody"
-        android:layout_width="262dp"
-        android:layout_height="113dp"
+        android:layout_width="261dp"
+        android:layout_height="160dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="32dp"
         android:text="Post Body"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hashtags" />
 </androidx.constraintlayout.widget.ConstraintLayout>

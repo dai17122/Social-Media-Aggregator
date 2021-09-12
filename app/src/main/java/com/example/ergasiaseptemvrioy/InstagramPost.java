@@ -2,7 +2,6 @@ package com.example.ergasiaseptemvrioy;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -13,10 +12,18 @@ import java.io.File;
 
 public class InstagramPost extends AsyncTask<String, Void, String> {
 
-
+    private final String INSTAGRAM_MEDIA_URL = "https://graph.facebook.com/17841449531539256/media";
+    private final String ACCESS_TOKEN_PARAM_NAME = "access_token";
+    private final String CAPTION_INSTAGRAM_PARAM_NAME= "caption";
+    private final String BACKEND_URL="https://heroku-cloud.herokuapp.com/";
+    private final String IMAGE_URL_PARAM_NAME = "image_url";
+    private final String BACKEND_FILE_PARAM_NAME = "userFile";
+    private final String INSTAGRAM_PUBLISH_MEDIA_URL = "https://graph.facebook.com/17841449531539256/media_publish";
+    private final String CREATION_ID_PARAM_NAME = "creation_id";
     private final Context context;
     private String imageUrl;
     private String url;
+    private String postBody;
 
     public void setImageUrl(String url) {
         this.imageUrl = url;
@@ -29,74 +36,66 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
         this.doInBackground();
     }
 
+    public void setPostBody(String postBody){
+        this.postBody = postBody;
+    }
+
     @Override
     protected String doInBackground(String... strings) {
-
-
         uploadImgToBackend();
-
-
         return "";
 
     }
 
-
     public void uploadImgToBackend() {
         File file = new File(imageUrl);
-        AndroidNetworking.upload("https://heroku-cloud.herokuapp.com/")
-            .addMultipartFile("userFile", file)
+        AndroidNetworking.upload(BACKEND_URL)
+            .addMultipartFile(BACKEND_FILE_PARAM_NAME, file)
             .build()
             .getAsString(new StringRequestListener() {
-
                 @Override
                 public void onResponse(String response) {
                     JsonParser parser = new JsonParser();
                     String imgUrl = parser.parseHerokuImageURl(response);
-                    Toast.makeText(context, "uploaded to backend", Toast.LENGTH_SHORT).show();
                     createInstagramPost(imgUrl);
                 }
                 @Override
                 public void onError(ANError error) {
-                    Log.d("upload", error.getMessage());
+                   Toast.makeText(context,"Instagram Upload Failed", Toast.LENGTH_SHORT).show();
                 }
             });
     }
 
     public void createInstagramPost(String url) {
 
-        AndroidNetworking.post("https://graph.facebook.com/17841449531539256/media")
-            .addQueryParameter("access_token", BuildConfig.INSTAGRAM_FINAL_ACCESS_TOKEN)
-            .addQueryParameter("caption", "first post")
-            .addQueryParameter("image_url", url)
+        AndroidNetworking.post(INSTAGRAM_MEDIA_URL)
+            .addQueryParameter(ACCESS_TOKEN_PARAM_NAME, BuildConfig.INSTAGRAM_FINAL_ACCESS_TOKEN)
+            .addQueryParameter(CAPTION_INSTAGRAM_PARAM_NAME, postBody)
+            .addQueryParameter(IMAGE_URL_PARAM_NAME, url)
             .build()
             .getAsString(new StringRequestListener() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(context, "media uploaded"+"", Toast.LENGTH_SHORT).show();
-
                     String id = new JsonParser().parseInstagramMediaId(response);
                     publishMedia(id);
                 }
                 @Override
                 public void onError(ANError anError) {
-                    Toast.makeText(context, anError.getErrorBody(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Instagram Upload Failed", Toast.LENGTH_LONG).show();
                 }
             });
     }
 
-
-
     public void publishMedia(String id){
 
-
-        AndroidNetworking.post("https://graph.facebook.com/17841449531539256/media_publish")
-            .addQueryParameter("access_token", BuildConfig.INSTAGRAM_FINAL_ACCESS_TOKEN)
-            .addQueryParameter("creation_id", id)
+        AndroidNetworking.post(INSTAGRAM_PUBLISH_MEDIA_URL)
+            .addQueryParameter(ACCESS_TOKEN_PARAM_NAME, BuildConfig.INSTAGRAM_FINAL_ACCESS_TOKEN)
+            .addQueryParameter(CREATION_ID_PARAM_NAME, id)
             .build()
             .getAsString(new StringRequestListener() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(context, response+"", Toast.LENGTH_LONG).show();
+
                 }
                 @Override
                 public void onError(ANError anError) {
