@@ -34,7 +34,6 @@ public class JsonParser {
         return trends;
     }
 
-
     public List<Post> parsePosts(String jsonResponse) {
         List<Post> posts = new ArrayList<Post>();
         try {
@@ -69,7 +68,6 @@ public class JsonParser {
 
     }
 
-
     public String parserAccessToken(String jsonResponse) {
         try {
             return new JSONObject(jsonResponse).getString("access_token");
@@ -89,5 +87,21 @@ public class JsonParser {
         return "";
     }
 
+    public String parseHerokuImageURl(String jsonResponse) {
+        try {
+            return new JSONObject(jsonResponse).getString("url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
+    public String parseInstagramMediaId(String jsonReponse){
+        try {
+            return new JSONObject(jsonReponse).getString("id");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

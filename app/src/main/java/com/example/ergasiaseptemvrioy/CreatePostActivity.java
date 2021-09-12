@@ -112,7 +112,7 @@ public class CreatePostActivity extends AppCompatActivity {
             twitterPost.uploadTwitterPost();
         }
         if (shareInsta){
-            UploadImgCloud cl = new UploadImgCloud();
+            InstagramPost cl = new InstagramPost(context);
             cl.setImageUrl(imagePath);
             cl.upload();
         }
