@@ -2,7 +2,6 @@ package com.example.ergasiaseptemvrioy;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -20,8 +19,7 @@ public class FacebookPost extends AsyncTask<String, Void, String> {
     private static final String POST_BODY_PARAMETER_NAME = "message";
     private static final String FACEBOOK_PAGE_ACCESS_TOKEN_PARAMETER_NAME = "access_token";
     private static final String IMAGE_PARAMETER_NAME = "image";
-
-
+    private static final String SUCCESS_MESSAGE = "Successfully uploaded post to facebook";
     private final String postBody;
     private String imagePath;
     private final Context context;
@@ -53,13 +51,10 @@ public class FacebookPost extends AsyncTask<String, Void, String> {
             .getAsJSONObject(new JSONObjectRequestListener() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("path", response.toString() + "");
-                    Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, SUCCESS_MESSAGE, Toast.LENGTH_LONG).show();
                 }
-
                 @Override
                 public void onError(ANError anError) {
-                    Log.d("path", anError.getErrorBody() + "");
                     Toast.makeText(context, anError.getErrorBody(), Toast.LENGTH_LONG).show();
                 }
             });

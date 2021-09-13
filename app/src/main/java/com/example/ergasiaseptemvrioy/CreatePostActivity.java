@@ -20,7 +20,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-
 public class CreatePostActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
@@ -31,6 +30,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private Switch facebookSwitch;
     private Switch instagramSwitch;
     private Switch twitterSwitch;
+
 
 
     @Override
@@ -50,7 +50,6 @@ public class CreatePostActivity extends AppCompatActivity {
         chooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ActivityCompat.requestPermissions(CreatePostActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
@@ -59,8 +58,6 @@ public class CreatePostActivity extends AppCompatActivity {
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
             }
-
-
         });
         submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -74,7 +71,6 @@ public class CreatePostActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -84,12 +80,9 @@ public class CreatePostActivity extends AppCompatActivity {
                 return;
             }
             Uri selectedUri = data.getData();
-            Log.d("path", selectedUri.getPath() + "");
             Uri selectedImageURI = data.getData();
             IVPreviewImage.setImageURI(selectedUri);
             imagePath = PathUtils.getPath(getApplicationContext(), selectedImageURI);
-
-
         }
     }
 
@@ -113,6 +106,7 @@ public class CreatePostActivity extends AppCompatActivity {
             TwitterPost twitterPost = new TwitterPost(context, postBody, imagePath);
             twitterPost.uploadTwitterPost();
         }
+
         //αν το imageview δν εχει εικονα, τοτε συμπερασμα ο χρηστης δεν εχει επιλεξει εικονα.
         // Αρα δεν θα ανεβασει  τιποτα στο instagram για προλειψη error
         if (shareInsta && IVPreviewImage.getDrawable() != null){
@@ -121,9 +115,7 @@ public class CreatePostActivity extends AppCompatActivity {
             cl.setPostBody(postBody);
             cl.upload();
         }else{
-            Toast.makeText(context, "not uploading to instagram", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Instagram needs a photo for a post upload!", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 }

@@ -18,8 +18,10 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
     private final String BACKEND_URL="https://heroku-cloud.herokuapp.com/";
     private final String IMAGE_URL_PARAM_NAME = "image_url";
     private final String BACKEND_FILE_PARAM_NAME = "userFile";
+    private final String SUCCESS_MESSAGE= "Successfully uploaded post to Instagram";
     private final String INSTAGRAM_PUBLISH_MEDIA_URL = "https://graph.facebook.com/17841449531539256/media_publish";
     private final String CREATION_ID_PARAM_NAME = "creation_id";
+    private final String FAILED_MESSAGE = "Instagram Upload Failed";
     private final Context context;
     private String imageUrl;
     private String url;
@@ -44,7 +46,6 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         uploadImgToBackend();
         return "";
-
     }
 
     public void uploadImgToBackend() {
@@ -81,7 +82,7 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
                 }
                 @Override
                 public void onError(ANError anError) {
-                    Toast.makeText(context, "Instagram Upload Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, FAILED_MESSAGE, Toast.LENGTH_LONG).show();
                 }
             });
     }
@@ -95,6 +96,7 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
             .getAsString(new StringRequestListener() {
                 @Override
                 public void onResponse(String response) {
+                    Toast.makeText(context, SUCCESS_MESSAGE, Toast.LENGTH_LONG).show();
 
                 }
                 @Override
