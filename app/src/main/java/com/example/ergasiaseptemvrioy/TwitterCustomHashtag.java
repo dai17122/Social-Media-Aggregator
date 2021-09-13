@@ -2,7 +2,6 @@ package com.example.ergasiaseptemvrioy;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -21,7 +20,8 @@ public class TwitterCustomHashtag extends AsyncTask<String, Void, List<Post>> {
     protected final String HASHTAG_STRING_LITERAL = "#";
     protected final String EMPTY_STRING = "";
     protected final String SPACE_STRING_LITERAL = " ";
-    protected final String TAG = "FETCHING_POSTS";
+    protected final String TAG = "FETCHING_POSTS";;
+
     protected String searchTerm;
     protected List<Post> posts = new ArrayList<>();
     private final TwitterPostsAdapter adapter;
@@ -66,10 +66,10 @@ public class TwitterCustomHashtag extends AsyncTask<String, Void, List<Post>> {
     }
 
     private void checkSearchTerm() {
-        if (this.searchTerm.contains("#")) {
+        if (this.searchTerm.contains(HASHTAG_STRING_LITERAL)) {
             this.searchTerm = this.searchTerm.replace(HASHTAG_STRING_LITERAL, EMPTY_STRING);
         }
-        if (this.searchTerm.contains(" ")) {
+        if (this.searchTerm.contains(SPACE_STRING_LITERAL)) {
             this.searchTerm = this.searchTerm.replace(SPACE_STRING_LITERAL, EMPTY_STRING);
         }
     }

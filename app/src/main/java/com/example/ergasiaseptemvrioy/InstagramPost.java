@@ -62,7 +62,7 @@ public class InstagramPost extends AsyncTask<String, Void, String> {
                 }
                 @Override
                 public void onError(ANError error) {
-                   Toast.makeText(context,"Instagram Upload Failed", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(context,FAILED_MESSAGE, Toast.LENGTH_SHORT).show();
                 }
             });
     }

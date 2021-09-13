@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,10 @@ public class CreatePostActivity extends AppCompatActivity {
     private Switch facebookSwitch;
     private Switch instagramSwitch;
     private Switch twitterSwitch;
-
+    private final String INTENT_TITLE = "Selecte a Picture";
+    private final String INSTAGRAM_NO_UPLOAD_MESSAGE = "Instagram needs a photo for a post upload!";
+    private final String NO_SOCIAL_MEDIA_SELECTED_MESSAGE = "No Social Media was selected to upload post to";
+    private final String INTENT_TYPE = "image/*";
 
 
     @Override
@@ -54,17 +56,15 @@ public class CreatePostActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
                 Intent i = new Intent();
-                i.setType("image/*");
+                i.setType(INTENT_TYPE);
                 i.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+                startActivityForResult(Intent.createChooser(i, INTENT_TITLE), SELECT_PICTURE);
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                Log.d("switches", facebookSwitch.isChecked() + "");
-
                 String postBody = editText.getText().toString();
                 uploadPosts(postBody, context);
             }
@@ -102,20 +102,26 @@ public class CreatePostActivity extends AppCompatActivity {
             request.uploadPost();
         }
 
-        if (shareTwiiter){
+        if (shareTwiiter) {
             TwitterPost twitterPost = new TwitterPost(context, postBody, imagePath);
             twitterPost.uploadTwitterPost();
         }
-
         //αν το imageview δν εχει εικονα, τοτε συμπερασμα ο χρηστης δεν εχει επιλεξει εικονα.
         // Αρα δεν θα ανεβασει  τιποτα στο instagram για προλειψη error
-        if (shareInsta && IVPreviewImage.getDrawable() != null){
+        if (shareInsta && IVPreviewImage.getDrawable() != null) {
             InstagramPost cl = new InstagramPost(context);
             cl.setImageUrl(imagePath);
             cl.setPostBody(postBody);
             cl.upload();
-        }else{
-            Toast.makeText(context, "Instagram needs a photo for a post upload!", Toast.LENGTH_SHORT).show();
         }
+        if (shareInsta && IVPreviewImage.getDrawable() == null) {
+            Toast.makeText(context, INSTAGRAM_NO_UPLOAD_MESSAGE, Toast.LENGTH_SHORT).show();
+        }
+
+        if (!shareInsta && !shareTwiiter && !shareFb) {
+            Toast.makeText(context, NO_SOCIAL_MEDIA_SELECTED_MESSAGE, Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }
